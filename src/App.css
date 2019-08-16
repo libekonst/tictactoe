@@ -1,11 +1,14 @@
 .App {
-  text-align: center;
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  position: relative;
+
+  /* background-color: rgb(13, 75, 13); Tereza color */
+  background-color: rgb(18, 61, 18); /* Aggeliki color */
+  /* background-color: rgb(17, 82, 36);  Kostas color */
 }
 
 .App-header {
@@ -19,15 +22,73 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Indie Flower' , cursive;
+  user-select: none;
+}
+#root,
+.App {
+  width: 100%;
+  height: 100%;
+}
+.Board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 15rem;
+  height: 15rem;
+  border: 2px solid rgb(255, 255, 255);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Square {
+  /* Flex */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Size */
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+h1 {
+}
+
+.topright {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 3rem;
+
+  overflow: hidden;
+}
+.GameEnd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.game-over {
+  font-size: 2rem;
+}
+
+.Refresh {
+  transition: all 0.5s linear;
+}
+.Refresh:hover {
+  transform: rotate(360deg);
+}
+
+.PlayAgain {
+  color: rgb(0, 0, 0);
+  font-size: 1.5rem;
+  transition: color 0.5s;
+}
+.PlayAgain:hover{
+  color: white;
 }
