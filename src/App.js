@@ -1,13 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
-import music from "./music.mp3";
+import suspense from "./music.mp3";
+import gameovermusic from "./gameover.mp3";
 import { Board } from "./Components";
+import { calculateWinner } from "./utils";
+const audioSources = {
+  suspense: suspense,
+  gameovermusic: gameovermusic,
+  none: "javascript:void(0)"
+};
 
 function App() {
+  const [isWelcome, setIsWelcome] = useState(true);
+  const startGame = () => setIsWelcome(false);
+  const exitGame = () => setIsWelcome(true);
+
+  if (isWelcome) return <WelcomeScreen onStartGame={startGame} />;
+  return <Game onExitGame={exitGame} />;
+}
+
+export default App;
+
+function WelcomeScreen({ onStartGame }) {
+  return (
+    <div className="App">
+      <h1 className="GameLogo">Tic Tac Toe</h1>
+      <div className="PlayButton" onClick={onStartGame}>
+        PLAY
+      </div>
+    </div>
+  );
+}
+
+function Game({ onExitGame }) {
   const initialSquares = Array(9).fill(null);
   const [squares, setSquares] = useState(initialSquares);
-  // const [step, setStep] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
+  const [audioSource, setAudioSource] = useState(audioSources.suspense);
+  const [isGameEnded, setIsGameEnded] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+  function endGame() {
+    setIsGameEnded(true);
+    setAudioSource(audioSources.gameovermusic);
+  }
+  function startGame() {
+    setIsGameEnded(false);
+    setAudioSource(audioSources.suspense);
+    setSquares(initialSquares);
+    setXIsNext(true);
+  }
+
+  const toggleMusic = () => setIsMusicPlaying(!isMusicPlaying);
+  useEffect(() => {
+    if (
+      calculateWinner(squares) ||
+      squares.filter(v => v !== null).length === 9
+    )
+      return endGame();
+  }, [squares]);
 
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) return;
@@ -16,28 +66,23 @@ function App() {
     newState[i] = xIsNext ? "X" : "O";
 
     setSquares(newState);
-    // setStep(step + 1);
     setXIsNext(!xIsNext);
   }
 
-  function handlePlayAgain() {
-    setSquares(initialSquares);
-    setXIsNext(true);
-  }
-
-  function isGameEnded() {
-    return (
-      calculateWinner(squares) || squares.filter(v => v !== null).length === 9
-    );
-  }
   return (
     <div className="App">
-      <div className="topright">
-        <ion-icon name="volume-high" />
-        <div className="Refresh" onClick={handlePlayAgain}>
-          <ion-icon name="refresh" />
+      <header className="Header">
+        <div className="Exit" onClick={onExitGame}>EXIT</div>
+
+        <div className="Controls">
+          <div className="Refresh" onClick={startGame}>
+            <ion-icon name="refresh" />
+          </div>
+          <div onClick={toggleMusic}>
+            <ion-icon name={isMusicPlaying ? "volume-high" : "volume-off"} />
+          </div>
         </div>
-      </div>
+      </header>
       <h1>
         {calculateWinner(squares)
           ? `Player ${calculateWinner(squares)} won!`
@@ -46,37 +91,21 @@ function App() {
       <Board squares={squares} onClick={i => handleClick(i)} />
       <div
         className="GameEnd"
-        style={{ visibility: isGameEnded() ? "visible" : "hidden" }}
+        style={{ visibility: isGameEnded ? "visible" : "hidden" }}
       >
         <div className="game-over">
-          Game Over! <span role="img" aria-label="a">😊</span>
+          Game Over!
+          <span role="img" aria-label="smile">
+            😊
+          </span>
         </div>
-        <div className="PlayAgain" onClick={handlePlayAgain}>Play Again</div>
+        <div className="PlayAgain" onClick={startGame}>
+          Play Again
+        </div>
       </div>
-      <audio src={music} autoPlay></audio>
+      {isMusicPlaying && (
+        <audio src={audioSource} autoPlay loop controls={false} />
+      )}
     </div>
   );
 }
-
-export default App;
-
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
-
