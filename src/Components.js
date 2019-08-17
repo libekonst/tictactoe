@@ -11,5 +11,7 @@ export const Board = ({ squares, onClick }) => (
 );
 
 export const Mark = ({ mark }) => (
-  <ion-icon name={mark === "X" ? "close" : "radio-button-off"} />
+  <div className={mark === "X" ? "XMark" : "OMark"}>
+    {mark}
+  </div>
 );

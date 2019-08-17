@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import suspense from "./music.mp3";
 import gameovermusic from "./gameover.mp3";
@@ -6,8 +6,7 @@ import { Board } from "./Components";
 import { calculateWinner } from "./utils";
 const audioSources = {
   suspense: suspense,
-  gameovermusic: gameovermusic,
-  none: "javascript:void(0)"
+  gameovermusic: gameovermusic
 };
 
 function App() {
@@ -24,7 +23,11 @@ export default App;
 function WelcomeScreen({ onStartGame }) {
   return (
     <div className="App">
-      <h1 className="GameLogo">Tic Tac Toe</h1>
+      <h1 className="GameLogo">
+        <span className="Tic">Tic</span>
+        <span className="Tac">Tac</span>
+        <span className="Toe">Toe</span>
+      </h1>
       <div className="PlayButton" onClick={onStartGame}>
         PLAY
       </div>
@@ -72,7 +75,9 @@ function Game({ onExitGame }) {
   return (
     <div className="App">
       <header className="Header">
-        <div className="Exit" onClick={onExitGame}>EXIT</div>
+        <div className="Exit" onClick={onExitGame}>
+          EXIT
+        </div>
 
         <div className="Controls">
           <div className="Refresh" onClick={startGame}>
