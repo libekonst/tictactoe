@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/tictactoe/static/css/main.58b4ae99.chunk.css",
+    "main.js": "/tictactoe/static/js/main.20b43634.chunk.js",
+    "main.js.map": "/tictactoe/static/js/main.20b43634.chunk.js.map",
+    "runtime~main.js": "/tictactoe/static/js/runtime~main.1d602e93.js",
+    "runtime~main.js.map": "/tictactoe/static/js/runtime~main.1d602e93.js.map",
+    "static/js/2.dd4e8116.chunk.js": "/tictactoe/static/js/2.dd4e8116.chunk.js",
+    "static/js/2.dd4e8116.chunk.js.map": "/tictactoe/static/js/2.dd4e8116.chunk.js.map",
+    "index.html": "/tictactoe/index.html",
+    "precache-manifest.e4160c3e702b0408cb309cbbb64aecfa.js": "/tictactoe/precache-manifest.e4160c3e702b0408cb309cbbb64aecfa.js",
+    "service-worker.js": "/tictactoe/service-worker.js",
+    "static/css/main.58b4ae99.chunk.css.map": "/tictactoe/static/css/main.58b4ae99.chunk.css.map",
+    "static/media/gameover.mp3": "/tictactoe/static/media/gameover.693ff6e7.mp3",
+    "static/media/music.mp3": "/tictactoe/static/media/music.e15c5d19.mp3",
+    "static/media/refresh.svg": "/tictactoe/static/media/refresh.8cde2f6b.svg",
+    "static/media/volume-off.svg": "/tictactoe/static/media/volume-off.3f8924a4.svg",
+    "static/media/volume-on.svg": "/tictactoe/static/media/volume-on.e6445464.svg"
+  }
+}
