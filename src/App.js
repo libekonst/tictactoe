@@ -13,10 +13,41 @@ const audioSources = {
 };
 
 function App() {
+  // Which screen to show
   const [isWelcome, setIsWelcome] = useState(true);
   const startGame = () => setIsWelcome(false);
   const exitGame = () => setIsWelcome(true);
 
+  // Show install button
+  let deferredInstallPrompt;
+  async function promptInstallApp(e) {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+
+    if (
+      (window.matchMedia &&
+        window.matchMedia("(display-mode: standalone)").matches) ||
+      window.navigator.standalone === true
+    )
+      return false;
+
+    // Prompt
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    e.srcElement.setAttribute("hidden", true);
+    const choice = await deferredInstallPrompt.userChoice;
+    if (choice.outcome === "accepted") console.log("App installed");
+    else console.log("App not installed");
+
+    deferredInstallPrompt = e;
+  }
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", promptInstallApp);
+    return () =>
+      window.removeEventListener("beforeinstallprompt", promptInstallApp);
+  });
+
+  // Render
   if (isWelcome) return <WelcomeScreen onStartGame={startGame} />;
   return <Game onExitGame={exitGame} />;
 }
