@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import suspense from "./music.mp3";
 import gameovermusic from "./gameover.mp3";
+import refresh from "./refresh.svg";
+import volumeOn from "./volume-on.svg";
+import volumeOff from "./volume-off.svg";
 import { Board } from "./Components";
 import { calculateWinner } from "./utils";
 const audioSources = {
@@ -80,11 +83,15 @@ function Game({ onExitGame }) {
         </div>
 
         <div className="Controls">
-          <div className="Refresh" onClick={startGame}>
-            <ion-icon name="refresh" />
+          <div className="ControlsIcon Refresh" onClick={startGame}>
+            <img src={refresh} alt="" className="ControlsImage RefreshImage" />
           </div>
-          <div onClick={toggleMusic}>
-            <ion-icon name={isMusicPlaying ? "volume-high" : "volume-off"} />
+          <div className="ControlsIcon Volume" onClick={toggleMusic}>
+            <img
+              src={isMusicPlaying ? volumeOn : volumeOff}
+              alt=""
+              className="ControlsImage"
+            />
           </div>
         </div>
       </header>

@@ -73,9 +73,6 @@ body {
   padding: 0.5rem;
   margin: 0;
 }
-.Controls {
-  display: flex;
-}
 
 .GameEnd {
   display: flex;
@@ -86,17 +83,38 @@ body {
 .game-over {
   font-size: 2rem;
 }
+.Controls {
+  display: flex;
+}
+.ControlsIcon {
+  /* Flex */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  /* Size */
+  height: 3rem;
+  width: 3rem;
+
+  /* White */
+  filter: invert(1);
+}
 .Refresh {
-  transition: all 0.5s linear;
-  transform-origin: center;
   margin-right: 1rem;
 }
 
-.Refresh:hover {
+.Refresh:hover .RefreshImage {
   transform: rotate(360deg);
 }
-.Exit:hover{
+.RefreshImage {
+  transition: all 0.5s linear;
+  transform-origin: center;
+}
+.ControlsImage {
+  width: 100%;
+  height: 100%;
+}
+.Exit:hover {
   transform: skew(-20deg) scale(1.1);
 }
 .PlayAgain {
