@@ -207,6 +207,13 @@ body {
   position: absolute;
   top: -30px;
   font-size: 2rem;
+  transition: all 0.5s linear;
+}
+
+.Tic:hover::before{
+  /* filter: hue-rotate(90deg); */
+  transform: scale(1.3);
+  animation: colorChange 1s infinite forwards alternate, bounce 0.5s infinite alternate ease-out;
 }
 
 .Tac {
@@ -219,6 +226,7 @@ body {
   top: -30px;
   font-size: 2rem;
   right: 50px;
+  transition: transform 2s;
 }
 .Tac::after {
   content: "🤔";
@@ -226,6 +234,12 @@ body {
   bottom: -30px;
   font-size: 2rem;
   left: 55px;
+}
+.Tac:hover::after {
+  content: "🙃";
+}
+.Tac:hover::before {
+  transform: rotate(360deg);
 }
 .Toe {
   color: tomato;
@@ -235,7 +249,30 @@ body {
 .Toe::before {
   content: "💢";
   position: absolute;
+  transition:transform 0.5s;
   top: -30px;
   right: 30px;
   font-size: 2rem;
+}
+.Toe:hover::before {
+  transform: scale(8) rotate(275deg);
+}
+@keyframes colorChange {
+  from {
+    filter: hue-rotate(0);
+  }
+
+  to {
+    filter: hue-rotate(360deg)
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(-20px);
+  }
+
+  to {
+    transform: translateY(20px);
+  }
 }
